@@ -15,3 +15,12 @@ meson build --prefix=/usr
 cd build
 ninja
 ```
+
+## Running the code
+
+After building, Run the code from the day-1 project root:
+
+
+```Bash
+./build/src/day-1
+```
