@@ -20,7 +20,6 @@ ninja
 
 After building, Run the code from the day-1 project root:
 
-
 ```Bash
 ./build/src/day-1
 ```
