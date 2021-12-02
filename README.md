@@ -6,4 +6,4 @@ My Advent of Code 2021 solutions
 
 ## Instructions
 
-Check each day folder
+Check each day folder.
