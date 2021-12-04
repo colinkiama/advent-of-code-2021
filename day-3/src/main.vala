@@ -38,22 +38,63 @@ struct BitCount {
 
 int main (string[] args) {
     string input_contents;
-    try {
-        FileUtils.get_contents ("data/input.txt", out input_contents);
-    } catch (Error e) {
-        error (e.message);
-    }
+    // try {
+    //     FileUtils.get_contents ("data/input.txt", out input_contents);
+    // } catch (Error e) {
+    //     error (e.message);
+    // }
 
-    string[] diagnostic_numbers = input_contents.strip ().split ("\n");
+    // string[] diagnostic_numbers = input_contents.strip ().split ("\n");
 
     // Part 1
     part_1_test ();
-    print ("Power consumption: %d", calculate_power_consumption (diagnostic_numbers));
+    // print ("Power consumption: %d", calculate_power_consumption (diagnostic_numbers));
     return 0;
 }
 
 int calculate_power_consumption (string[] diagnostic_numbers) {
-    return 0;
+    BitCount[] bit_counts = new BitCount[diagnostic_numbers[0].length];
+
+    foreach (string diagnostic_line in diagnostic_numbers) {
+        for (int i = 0; i < diagnostic_line.length; i++) {
+            int num = parse_num_from_char (diagnostic_line[i]);
+            if (num == 0) {
+                bit_counts[i].off_count++;
+            } else {
+                bit_counts[i].on_count++;
+            }
+        }
+    }
+
+    int gamma_rate = calculate_gamma_rate (bit_counts);
+    int epsilon_rate = calculate_epsilon_rate (bit_counts);
+    print ("Test gamma rate: %d\n", gamma_rate);
+    print ("Test epsilon rate: %d\n", epsilon_rate);
+    print ("Test power consumption: %d\n", epsilon_rate * gamma_rate);
+
+    return gamma_rate * epsilon_rate;
+}
+
+int calculate_gamma_rate (BitCount[] bit_counts) {
+    int gamma_val = 0;
+    for (int i = 0; i < bit_counts.length; i++) {
+        if (bit_counts[i].most_common_bit () == BitState.ON) {
+            gamma_val += (int) Math.pow (2, bit_counts.length - 1 - i);
+        }
+    }
+
+    return gamma_val;
+}
+
+int calculate_epsilon_rate (BitCount[] bit_counts) {
+    int epsilon_val = 0;
+    for (int i = 0; i < bit_counts.length; i++) {
+        if (bit_counts[i].lowest_common_bit () == BitState.ON) {
+            epsilon_val += (int) Math.pow (2, bit_counts.length - 1 - i);
+        }
+    }
+
+    return epsilon_val;
 }
 
 int parse_num_from_char (char char_to_parse) {
@@ -77,5 +118,5 @@ void part_1_test () {
         "01010"
     };
 
-    assert(calculate_power_consumption (test_data) == 198);
+    assert (calculate_power_consumption (test_data) == 198);
 }

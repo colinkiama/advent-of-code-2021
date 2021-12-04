@@ -2,7 +2,7 @@ sources = [
   'main.vala'
 ]
 
-executable('day-2',
+executable('day-3',
   sources,
   dependencies: dependencies,
   install: true)
