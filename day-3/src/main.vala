@@ -38,17 +38,17 @@ struct BitCount {
 
 int main (string[] args) {
     string input_contents;
-    // try {
-    //     FileUtils.get_contents ("data/input.txt", out input_contents);
-    // } catch (Error e) {
-    //     error (e.message);
-    // }
+    try {
+        FileUtils.get_contents ("data/input.txt", out input_contents);
+    } catch (Error e) {
+        error (e.message);
+    }
 
-    // string[] diagnostic_numbers = input_contents.strip ().split ("\n");
+    string[] diagnostic_numbers = input_contents.strip ().split ("\n");
 
     // Part 1
     part_1_test ();
-    // print ("Power consumption: %d", calculate_power_consumption (diagnostic_numbers));
+    print ("Power consumption: %d\n", calculate_power_consumption (diagnostic_numbers));
     return 0;
 }
 
@@ -68,10 +68,6 @@ int calculate_power_consumption (string[] diagnostic_numbers) {
 
     int gamma_rate = calculate_gamma_rate (bit_counts);
     int epsilon_rate = calculate_epsilon_rate (bit_counts);
-    print ("Test gamma rate: %d\n", gamma_rate);
-    print ("Test epsilon rate: %d\n", epsilon_rate);
-    print ("Test power consumption: %d\n", epsilon_rate * gamma_rate);
-
     return gamma_rate * epsilon_rate;
 }
 
